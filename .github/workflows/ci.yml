@@ -25,6 +25,7 @@ jobs:
         arch: [x86-64]
         compiler: [gcc, clang]
         container:
+          - alpine:latest
           - archlinux:latest
           - debian:testing
           - debian:stable
@@ -130,6 +131,21 @@ jobs:
             cross_compile: s390x-linux-gnu
             pkg_config_path: /usr/lib/s390x-linux-gnu/pkgconfig
             variant: cross-compile
+
+          # Ubuntu 32-bit builds
+          - container: "ubuntu:jammy"
+            arch: i386
+            compiler: gcc -m32
+            cross_compile: i686-linux-gnu
+            pkg_config_path: /usr/lib/i386-linux-gnu/pkgconfig
+            variant: i386
+
+          - container: "ubuntu:focal"
+            arch: i386
+            compiler: gcc -m32
+            cross_compile: i686-linux-gnu
+            pkg_config_path: /usr/lib/i386-linux-gnu/pkgconfig
+            variant: i386
 
     container:
       image: ${{ matrix.container }}
